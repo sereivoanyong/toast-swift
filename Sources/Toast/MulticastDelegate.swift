@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  MulticastDelegate.swift
+//  Toast
 //
 //  Created by Bas Jansen on 16/09/2023.
 //
@@ -9,7 +9,7 @@ import Foundation
 
 class MulticastDelegate<T> {
 
-    private let delegates: NSHashTable<AnyObject> = NSHashTable.init()
+    private let delegates = NSHashTable<AnyObject>()
 
     func add(_ delegate: T) {
         delegates.add(delegate as AnyObject)

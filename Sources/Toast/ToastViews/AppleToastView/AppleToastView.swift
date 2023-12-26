@@ -5,10 +5,10 @@
 //  Created by Bastiaan Jansen on 30/06/2021.
 //
 
-import Foundation
 import UIKit
 
-public class AppleToastView : UIView, ToastView {
+public class AppleToastView: UIView, ToastView {
+
     private let config: ToastViewConfiguration
     
     private let child: UIView
@@ -70,11 +70,7 @@ public class AppleToastView : UIView, ToastView {
         clipsToBounds = true
         layer.zPosition = 999
         layer.cornerRadius = config.cornerRadius ?? frame.height / 2
-        if #available(iOS 12.0, *) {
-            backgroundColor = traitCollection.userInterfaceStyle == .light ? config.lightBackgroundColor : config.darkBackgroundColor
-        } else {
-            backgroundColor = config.lightBackgroundColor
-        }
+        backgroundColor = traitCollection.userInterfaceStyle == .light ? config.lightBackgroundColor : config.darkBackgroundColor
         
         addShadow()
     }

@@ -5,10 +5,10 @@
 //  Created by Bastiaan Jansen on 28/06/2021.
 //
 
-import Foundation
 import UIKit
 
 public struct ToastConfiguration {
+
     public let direction: Toast.Direction
     public let dismissables: [Toast.Dismissable]
     public let animationTime: TimeInterval
@@ -47,6 +47,7 @@ public struct ToastConfiguration {
 
 // MARK: Default animations
 private extension ToastConfiguration {
+
     private static func defaultEnteringAnimation(with direction: Toast.Direction) -> Toast.AnimationType {
         switch direction {
         case .top:
@@ -70,6 +71,7 @@ private extension ToastConfiguration {
 }
 
 fileprivate extension Toast.AnimationType {
+
     var isDefault: Bool {
         if case .default = self {
             return true

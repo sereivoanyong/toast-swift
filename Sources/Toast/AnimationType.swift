@@ -1,16 +1,17 @@
 //
-//  File.swift
-//  
+//  AnimationType.swift
+//  Toast
 //
 //  Created by Bas Jansen on 16/09/2023.
 //
 
-import Foundation
 import UIKit
 
 extension Toast {
+
     /// Built-in animations for your toast
     public enum AnimationType {
+
         /// Use this type for fading in/out animations.
         case slide(x: CGFloat, y: CGFloat)
 
@@ -67,5 +68,4 @@ extension Toast {
             }
         }
     }
-
 }

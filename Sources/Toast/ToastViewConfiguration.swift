@@ -5,10 +5,10 @@
 //  Created by Thomas Maw on 12/9/2023.
 //
 
-import Foundation
 import UIKit
 
 public struct ToastViewConfiguration {
+  
     public let minHeight: CGFloat
     public let minWidth: CGFloat
     

@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  ToastQueue.swift
+//  Toast
 //
 //  Created by Bas Jansen on 16/09/2023.
 //
@@ -75,7 +75,5 @@ public class ToastQueue {
             queue.multicast.invoke { $0.didShowAnyToast(toast, queuedToasts: queue.queue) }
             queue.show(index: 0, after: 0.5)
         }
-        
     }
-    
 }

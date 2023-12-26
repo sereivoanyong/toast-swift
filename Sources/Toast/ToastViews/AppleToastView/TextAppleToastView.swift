@@ -5,10 +5,10 @@
 //  Created by Bastiaan Jansen on 29/06/2021.
 //
 
-import Foundation
 import UIKit
 
 public class TextToastView : UIStackView {
+
     private lazy var titleLabel: UILabel = {
         UILabel()
     }()

@@ -19,11 +19,7 @@ public class Toast {
     private var startShiftY: CGFloat = 0
     
     public static var defaultImageTint: UIColor {
-        if #available(iOS 13.0, *) {
-            return .label
-        } else {
-            return .black
-        }
+        return .label
     }
 
     private var multicast = MulticastDelegate<ToastDelegate>()
@@ -222,6 +218,7 @@ public class Toast {
 }
 
 public extension Toast {
+
     private func enablePanToClose() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(toastOnPan(_:)))
         self.view.addGestureRecognizer(pan)
@@ -299,15 +296,18 @@ public extension Toast {
 }
 
 extension Toast {
+
     public enum Dismissable: Equatable {
-        case tap,
-             longPress,
-             time(time: TimeInterval),
-             swipe(direction: DismissSwipeDirection)
+
+        case tap
+        case longPress
+        case time(time: TimeInterval)
+        case swipe(direction: DismissSwipeDirection)
     }
     
     public enum Background: Equatable {
-        case none,
-             color(color: UIColor = defaultImageTint.withAlphaComponent(0.25))
+
+        case none
+        case color(color: UIColor = defaultImageTint.withAlphaComponent(0.25))
     }
 }

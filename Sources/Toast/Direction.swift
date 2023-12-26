@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  Direction.swift
+//  Toast
 //
 //  Created by Bas Jansen on 16/09/2023.
 //
@@ -11,14 +11,18 @@ extension Toast {
  
     /// The direction where the toast will be displayed
     public enum Direction {
-        case top, bottom, center
+
+        case top
+        case bottom
+        case center
     }
     
     public enum DismissSwipeDirection: Equatable {
-        case toTop,
-             toBottom,
-             natural
-        
+
+        case toTop
+        case toBottom
+        case natural
+
         func shouldApply(_ delta: CGFloat, direction: Direction) -> Bool {
             switch self {
             case .toTop:
@@ -37,5 +41,4 @@ extension Toast {
             }
         }
     }
-    
 }

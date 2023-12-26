@@ -28,7 +28,6 @@ public protocol ToastDelegate: AnyObject {
     /// - Parameters:
     ///   - toast: The toast that was just closed.
     func didCloseToast(_ toast: Toast)
-
 }
 
 extension ToastDelegate {
@@ -40,5 +39,4 @@ extension ToastDelegate {
     func willCloseToast(_ toast: Toast) {}
 
     func didCloseToast(_ toast: Toast) {}
-
 }

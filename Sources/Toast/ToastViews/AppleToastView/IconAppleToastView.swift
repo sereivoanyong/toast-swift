@@ -5,16 +5,15 @@
 //  Created by Bastiaan Jansen on 29/06/2021.
 //
 
-import Foundation
 import UIKit
 
 public class IconAppleToastView : UIStackView {
+
     private lazy var vStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 2
         stackView.alignment = .center
-        
         return stackView
     }()
     
@@ -25,7 +24,6 @@ public class IconAppleToastView : UIStackView {
             imageView.widthAnchor.constraint(equalToConstant: 28),
             imageView.heightAnchor.constraint(equalToConstant: 28)
         ])
-        
         return imageView
     }()
     
@@ -38,11 +36,7 @@ public class IconAppleToastView : UIStackView {
     }()
     
     public static var defaultImageTint: UIColor {
-        if #available(iOS 13.0, *) {
-            return .label
-        } else {
-            return .black
-        }
+        return .label
     }
     
     public init(
