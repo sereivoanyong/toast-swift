@@ -16,8 +16,6 @@ public struct ToastConfiguration {
     public let exitingAnimation: Toast.AnimationType
     public let background: Toast.Background
 
-    public let view: UIView?
-
     /// Creates a new Toast configuration object.
     /// - Parameters:
     ///   - direction: The position the toast will be displayed.
@@ -25,14 +23,12 @@ public struct ToastConfiguration {
     ///   - animationTime:Duration of the animation
     ///   - enteringAnimation: The entering animation of the toast.
     ///   - exitingAnimation: The exiting animation of the toast.
-    ///   - attachTo: The view on which the toast view will be attached.
     public init(
         direction: Toast.Direction = .top,
         dismissBy: [Toast.Dismissable] = [.time(time: 4.0), .swipe(direction: .natural)],
         animationTime: TimeInterval = 0.2,
         enteringAnimation: Toast.AnimationType = .default,
         exitingAnimation: Toast.AnimationType = .default,
-        attachTo view: UIView? = nil,
         background: Toast.Background = .none
     ) {
         self.direction = direction
@@ -40,13 +36,12 @@ public struct ToastConfiguration {
         self.animationTime = animationTime
         self.enteringAnimation = enteringAnimation.isDefault ? Self.defaultEnteringAnimation(with: direction) : enteringAnimation
         self.exitingAnimation = exitingAnimation.isDefault ? Self.defaultExitingAnimation(with: direction) : exitingAnimation
-        self.view = view
         self.background = background
     }
 }
 
 // MARK: Default animations
-private extension ToastConfiguration {
+extension ToastConfiguration {
 
     private static func defaultEnteringAnimation(with direction: Toast.Direction) -> Toast.AnimationType {
         switch direction {
@@ -67,15 +62,5 @@ private extension ToastConfiguration {
     
     private static func defaultExitingAnimation(with direction: Toast.Direction) -> Toast.AnimationType {
         self.defaultEnteringAnimation(with: direction)
-    }
-}
-
-fileprivate extension Toast.AnimationType {
-
-    var isDefault: Bool {
-        if case .default = self {
-            return true
-        }
-        return false
     }
 }

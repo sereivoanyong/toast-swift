@@ -82,7 +82,6 @@ The `text`, `default` and `custom` methods support custom configuration options.
 | `animationTime` | Duration of the show and close animation in seconds.                                                | `TimeInterval` | `0.2`   |
 | `enteringAnimation` | The type of animation that will be used when toast is showing                                   | `.slide`, `.fade`, `.scaleAndSlide`, `.scale` and `.custom` | `.default`|
 | `exitingAnimation` | The type of animation that will be used when toast is exiting                                    | `.slide`, `.fade`, `.scaleAndSlide`, `.scale` and `.custom` | `.default`|
-| `attachTo`      | The view which the toast view will be attached to.                                                  | `UIView`       | `nil`   |
 
 
 ```swift
@@ -141,19 +140,6 @@ let customToastView: ToastView = CustomToastView(text: "Safari pasted from Notes
 
 let toast = Toast.custom(view: customToastView)
 toast.show()
-```
-
-### Queues
-To show toasts after each other, use the `ToastQueue` class:
-
-```swift
-let toast1 = Toast.text("Notification 1")
-let toast2 = Toast.text("Notification 2")
-let toast3 = Toast.text("Notification 3")
-
-let queue = ToastQueue([toast1, toast2, toast3])
-
-queue.show()
 ```
 
 ### Delegates

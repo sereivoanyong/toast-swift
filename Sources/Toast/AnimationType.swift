@@ -31,7 +31,14 @@ extension Toast {
         
         /// Currently the default animation if no explicit one specified.
         case `default`
-        
+
+        var isDefault: Bool {
+            if case .default = self {
+                return true
+            }
+            return false
+        }
+
         func apply(to view: UIView) {
             switch self {
             case .slide(x: let x, y: let y):
