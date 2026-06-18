@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ToastHelper {
+@MainActor class ToastHelper {
     
     public static func topController() -> UIViewController? {
         if var topController = keyWindow()?.rootViewController {

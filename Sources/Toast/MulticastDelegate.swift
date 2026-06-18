@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MulticastDelegate<T> {
+@MainActor class MulticastDelegate<T> {
 
     private let delegates: NSHashTable<AnyObject> = NSHashTable.init()
 

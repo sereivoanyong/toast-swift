@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class Toast {
+@MainActor public class Toast {
     private static var activeToasts = [Toast]()
     
     public weak var viewController: UIViewController?
@@ -20,7 +20,7 @@ public class Toast {
     private var startY: CGFloat = 0
     private var startShiftY: CGFloat = 0
     
-    public static var defaultImageTint: UIColor {
+    nonisolated public static var defaultImageTint: UIColor {
         if #available(iOS 13.0, *) {
             return .label
         } else {
@@ -316,7 +316,9 @@ public extension Toast {
         for dismissable in config.dismissables {
             if case .time(let displayTime) = dismissable {
                 closeTimer = Timer.scheduledTimer(withTimeInterval: .init(displayTime), repeats: false) { [self] _ in
-                    close()
+                    MainActor.assumeIsolated {
+                        close()
+                    }
                 }
             }
         }
@@ -337,7 +339,7 @@ extension Toast {
     }
 }
 
-extension Toast: Equatable {
+extension Toast: @MainActor Equatable {
     public static func == (lhs: Toast, rhs: Toast) -> Bool {
         return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }

@@ -7,8 +7,8 @@
 
 import Foundation
 
-public class ToastQueue {
-    
+@MainActor public class ToastQueue {
+
     private var queue: [Toast]
     private var multicast = MulticastDelegate<ToastQueueDelegate>()
     private var isShowing = false
@@ -63,7 +63,7 @@ public class ToastQueue {
     }
     
     
-    private class QueuedToastDelegate: ToastDelegate {
+    @MainActor private class QueuedToastDelegate: ToastDelegate {
         
         private var queue: ToastQueue
         

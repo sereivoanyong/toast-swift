@@ -31,7 +31,7 @@ extension Toast {
         /// Currently the default animation if no explicit one specified.
         case `default`
         
-        func apply(to view: UIView) {
+        @MainActor func apply(to view: UIView) {
             switch self {
             case .slide(x: let x, y: let y):
                 view.transform = CGAffineTransform(translationX: x, y: y)
@@ -54,7 +54,7 @@ extension Toast {
         }
         
         /// Undo the effects from the ToastView so that it never happened.
-        func undo(from view: UIView) {
+        @MainActor func undo(from view: UIView) {
             switch self {
             case .slide, .scaleAndSlide, .scale, .custom:
                 view.transform = .identity
