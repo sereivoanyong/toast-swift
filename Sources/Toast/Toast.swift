@@ -10,6 +10,7 @@ import UIKit
 public class Toast {
     private static var activeToasts = [Toast]()
     
+    public weak var viewController: UIViewController?
     public let view: ToastView
     private var backgroundView: UIView?
     
@@ -149,22 +150,23 @@ public class Toast {
     /// - Parameters:
     ///   - type: Haptic feedback type
     ///   - time: Time after which the toast is shown
-    public func show(haptic type: UINotificationFeedbackGenerator.FeedbackType, after time: TimeInterval = 0) {
+    public func show(haptic type: UINotificationFeedbackGenerator.FeedbackType, after time: TimeInterval = 0, on viewController: UIViewController? = nil) {
         UINotificationFeedbackGenerator().notificationOccurred(type)
-        show(after: time)
+        show(after: time, on: viewController)
     }
 #endif
     
     /// Show the toast
     /// - Parameter delay: Time after which the toast is shown
-    public func show(after delay: TimeInterval = 0) {
-        if let backgroundView = self.createBackgroundView() {
+    public func show(after delay: TimeInterval = 0, on viewController: UIViewController? = nil) {
+        let viewController = viewController ?? ToastHelper.topController()
+        if let backgroundView = self.createBackgroundView(for: viewController) {
             self.backgroundView = backgroundView
-            config.view?.addSubview(backgroundView) ?? ToastHelper.topController()?.view.addSubview(backgroundView)
+            viewController?.view.addSubview(backgroundView)
         }
 
         UIView.performWithoutAnimation {
-            config.view?.addSubview(view) ?? ToastHelper.topController()?.view.addSubview(view)
+            viewController?.view.addSubview(view)
             view.createView(for: self)
             view.layoutIfNeeded()
         }
@@ -227,12 +229,12 @@ public class Toast {
         multicast.add(delegate)
     }
     
-    private func createBackgroundView() -> UIView? {
-        switch (config.background) {
+    private func createBackgroundView(for viewController: UIViewController?) -> UIView? {
+        switch config.background {
         case .none:
             return nil
         case .color(let color):
-            let backgroundView = UIView(frame: config.view?.frame ?? ToastHelper.topController()?.view.frame ?? .zero)
+            let backgroundView = UIView(frame: viewController?.view.bounds ?? .zero)
             backgroundView.backgroundColor = color
             backgroundView.layer.zPosition = 998
             return backgroundView

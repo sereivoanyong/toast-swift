@@ -18,8 +18,6 @@ public struct ToastConfiguration {
     public let allowToastOverlap: Bool
     public let fixedSize: CGSize?
 
-    public let view: UIView?
-
     /// Creates a new Toast configuration object.
     /// - Parameters:
     ///   - direction: The position the toast will be displayed.
@@ -27,7 +25,6 @@ public struct ToastConfiguration {
     ///   - animationTime: Duration of the animation
     ///   - enteringAnimation: The entering animation of the toast.
     ///   - exitingAnimation: The exiting animation of the toast.
-    ///   - attachTo: The view on which the toast view will be attached.
     ///   - allowToastOverlap: Allows new toasts to appear over existing ones.
     ///   - fixedSize: Exact toast size in points
     public init(
@@ -36,7 +33,6 @@ public struct ToastConfiguration {
         animationTime: TimeInterval = 0.2,
         enteringAnimation: Toast.AnimationType = .default,
         exitingAnimation: Toast.AnimationType = .default,
-        attachTo view: UIView? = nil,
         background: Toast.Background = .none,
         allowToastOverlap: Bool = true,
         fixedSize: CGSize? = nil
@@ -46,7 +42,6 @@ public struct ToastConfiguration {
         self.animationTime = animationTime
         self.enteringAnimation = enteringAnimation.isDefault ? Self.defaultEnteringAnimation(with: direction) : enteringAnimation
         self.exitingAnimation = exitingAnimation.isDefault ? Self.defaultExitingAnimation(with: direction) : exitingAnimation
-        self.view = view
         self.background = background
         self.allowToastOverlap = allowToastOverlap
         self.fixedSize = fixedSize

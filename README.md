@@ -82,7 +82,6 @@ The `text`, `default` and `custom` methods support custom configuration options.
 | `animationTime` | Duration of the show and close animation in seconds.                                                | `TimeInterval` | `0.2`   |
 | `enteringAnimation` | The type of animation that will be used when toast is showing                                   | `.slide`, `.fade`, `.scaleAndSlide`, `.scale` and `.custom` | `.default`|
 | `exitingAnimation` | The type of animation that will be used when toast is exiting                                    | `.slide`, `.fade`, `.scaleAndSlide`, `.scale` and `.custom` | `.default`|
-| `attachTo`      | The view which the toast view will be attached to.                                                  | `UIView`       | `nil`   |
 
 
 ```swift
