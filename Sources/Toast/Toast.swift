@@ -73,7 +73,7 @@ import UIKit
     ///   - config: Configuration options
     /// - Returns: A new Toast view with the configured layout
     public static func `default`(
-        image: UIImage,
+        image: UIImage?,
         imageTint: UIColor? = defaultImageTint,
         title: NSAttributedString,
         subtitle: NSAttributedString? = nil,
@@ -96,7 +96,7 @@ import UIKit
     ///   - config: Configuration options
     /// - Returns: A new Toast view with the configured layout
     public static func `default`(
-        image: UIImage,
+        image: UIImage?,
         imageTint: UIColor? = defaultImageTint,
         title: String,
         subtitle: String? = nil,
@@ -105,6 +105,33 @@ import UIKit
     ) -> Toast {
         let view = AppleToastView(
             child: IconAppleToastView(image: image, imageTint: imageTint, title: title, subtitle: subtitle, viewConfig: viewConfig),
+            config: viewConfig, fixedHeight: config.fixedSize?.height, fixedWidth: config.fixedSize?.width
+        )
+        return self.init(view: view, config: config)
+    }
+    
+    /// Creates a new Toast with the default Apple style layout with an icon, title and optional subtitle.
+    /// - Parameters:
+    ///   - image: Image which is displayed in the toast view
+    ///   - imageTint: Tint of the image
+    ///   - title: Title which is displayed in the toast view
+    ///   - subtitle: Optional subtitle which is displayed in the toast view
+    ///   - config: Configuration options
+    /// - Returns: A new Toast view with the configured layout
+    public static func `default`(
+        image: UIImage?,
+        imagePreferredSymbolConfiguration: UIImage.SymbolConfiguration? = nil,
+        imageTintColor: UIColor? = defaultImageTint,
+        imageContentMode: UIView.ContentMode = .scaleAspectFill,
+        title: String,
+        subtitle: String? = nil,
+        buttonConfiguration: UIButton.Configuration?,
+        buttonAction: UIAction?,
+        viewConfig: ToastViewConfiguration = ToastViewConfiguration(),
+        config: ToastConfiguration = ToastConfiguration()
+    ) -> Toast {
+        let view = AppleToastView(
+            child: IconAppleToastView(image: image, imagePreferredSymbolConfiguration: imagePreferredSymbolConfiguration, imageTintColor: imageTintColor, imageContentMode: imageContentMode, title: title, subtitle: subtitle, buttonConfiguration: buttonConfiguration, buttonAction: buttonAction, viewConfig: viewConfig),
             config: viewConfig, fixedHeight: config.fixedSize?.height, fixedWidth: config.fixedSize?.width
         )
         return self.init(view: view, config: config)

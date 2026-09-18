@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-public struct ToastViewConfiguration {
+@MainActor public struct ToastViewConfiguration {
     public let minHeight: CGFloat
     public let minWidth: CGFloat
     
-    public let background: Toast.Background
+    public var background: Toast.Background
     
     public let titleNumberOfLines: Int
     public let subtitleNumberOfLines: Int
@@ -20,6 +20,12 @@ public struct ToastViewConfiguration {
     public let cornerRadius: CGFloat?
 
     public let textAlignment: UIStackView.Alignment
+
+    public var imageSize: CGSize = CGSize(width: 28, height: 28)
+    public var buttonSize: CGSize = CGSize(width: UIView.noIntrinsicMetric, height: 32)
+    public var imageToTextPadding: CGFloat = 8
+    public var textToButtonPadding: CGFloat = 12
+    public var insets: NSDirectionalEdgeInsets = NSDirectionalEdgeInsets(top: 10, leading: 25, bottom: 10, trailing: 25)
 
     @available(iOS 13.0, *)
     public init(
@@ -62,16 +68,16 @@ public struct ToastViewConfiguration {
     }
 
     public init(
-        minHeight: CGFloat = 58,
-        minWidth: CGFloat = 150,
+        minimumWidth: CGFloat = 150,
+        minimumHeight: CGFloat = 58,
         background: Toast.Background,
         titleNumberOfLines: Int = 1,
         subtitleNumberOfLines: Int = 1,
         cornerRadius: CGFloat? = nil,
         textAlignment: UIStackView.Alignment = .center
     ) {
-        self.minHeight = minHeight
-        self.minWidth = minWidth
+        self.minWidth = minimumWidth
+        self.minHeight = minimumHeight
         self.background = background
         self.titleNumberOfLines = titleNumberOfLines
         self.subtitleNumberOfLines = subtitleNumberOfLines

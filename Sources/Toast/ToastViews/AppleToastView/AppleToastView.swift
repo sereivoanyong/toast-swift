@@ -46,7 +46,7 @@ public class AppleToastView : UIView, ToastView {
         
         var constraints: [NSLayoutConstraint] = [
             leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor, constant: 10),
-            trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -10),
+            superview.trailingAnchor.constraint(greaterThanOrEqualTo: trailingAnchor, constant: 10),
             centerXAnchor.constraint(equalTo: superview.centerXAnchor)
         ]
         
@@ -71,7 +71,7 @@ public class AppleToastView : UIView, ToastView {
         
         switch toast.config.direction {
         case .bottom:
-            bottomAnchor.constraint(equalTo: superview.layoutMarginsGuide.bottomAnchor, constant: 0).isActive = true
+            superview.layoutMarginsGuide.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         case .top:
             topAnchor.constraint(equalTo: superview.layoutMarginsGuide.topAnchor, constant: 0).isActive = true
         case .center:
@@ -124,14 +124,17 @@ public class AppleToastView : UIView, ToastView {
     private func addSubviewConstraints() {
         child.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            child.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            child.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            child.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            child.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25)
+            child.topAnchor.constraint(equalTo: topAnchor, constant: config.insets.top),
+            child.leadingAnchor.constraint(equalTo: leadingAnchor, constant: config.insets.leading),
+            bottomAnchor.constraint(equalTo: child.bottomAnchor, constant: config.insets.bottom),
+            trailingAnchor.constraint(equalTo: child.trailingAnchor, constant: config.insets.trailing)
         ])
     }
     
     private func addShadow() {
+        if #available(iOS 26.0, *), case .visualEffect = config.background {
+            return
+        }
         layer.masksToBounds = false
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.shadowColor = UIColor.black.withAlphaComponent(0.08).cgColor
