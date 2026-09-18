@@ -12,8 +12,7 @@ public struct ToastViewConfiguration {
     public let minHeight: CGFloat
     public let minWidth: CGFloat
     
-    public let darkBackgroundColor: UIColor
-    public let lightBackgroundColor: UIColor
+    public let background: Toast.Background
     
     public let titleNumberOfLines: Int
     public let subtitleNumberOfLines: Int
@@ -22,6 +21,7 @@ public struct ToastViewConfiguration {
 
     public let textAlignment: UIStackView.Alignment
 
+    @available(iOS 13.0, *)
     public init(
         minHeight: CGFloat = 58,
         minWidth: CGFloat = 150,
@@ -34,8 +34,45 @@ public struct ToastViewConfiguration {
     ) {
         self.minHeight = minHeight
         self.minWidth = minWidth
-        self.darkBackgroundColor = darkBackgroundColor
-        self.lightBackgroundColor = lightBackgroundColor
+        self.background = .color(color: UIColor(dynamicProvider: { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ? darkBackgroundColor : lightBackgroundColor
+        }))
+        self.titleNumberOfLines = titleNumberOfLines
+        self.subtitleNumberOfLines = subtitleNumberOfLines
+        self.cornerRadius = cornerRadius
+        self.textAlignment = textAlignment
+    }
+
+    public init(
+        minHeight: CGFloat = 58,
+        minWidth: CGFloat = 150,
+        backgroundColor: UIColor = UIColor(red: 0.99, green: 0.99, blue: 0.99, alpha: 1.00),
+        titleNumberOfLines: Int = 1,
+        subtitleNumberOfLines: Int = 1,
+        cornerRadius: CGFloat? = nil,
+        textAlignment: UIStackView.Alignment = .center
+    ) {
+        self.minHeight = minHeight
+        self.minWidth = minWidth
+        self.background = .color(color: backgroundColor)
+        self.titleNumberOfLines = titleNumberOfLines
+        self.subtitleNumberOfLines = subtitleNumberOfLines
+        self.cornerRadius = cornerRadius
+        self.textAlignment = textAlignment
+    }
+
+    public init(
+        minHeight: CGFloat = 58,
+        minWidth: CGFloat = 150,
+        background: Toast.Background,
+        titleNumberOfLines: Int = 1,
+        subtitleNumberOfLines: Int = 1,
+        cornerRadius: CGFloat? = nil,
+        textAlignment: UIStackView.Alignment = .center
+    ) {
+        self.minHeight = minHeight
+        self.minWidth = minWidth
+        self.background = background
         self.titleNumberOfLines = titleNumberOfLines
         self.subtitleNumberOfLines = subtitleNumberOfLines
         self.cornerRadius = cornerRadius

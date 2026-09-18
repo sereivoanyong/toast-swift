@@ -12,7 +12,8 @@ public class AppleToastView : UIView, ToastView {
     private let config: ToastViewConfiguration
     
     private let child: UIView
-    
+    private var backgroundView: UIVisualEffectView!
+
     private var toast: Toast?
     
     private let fixedHeight: CGFloat?
@@ -93,12 +94,28 @@ public class AppleToastView : UIView, ToastView {
     private func style() {
         layoutIfNeeded()
         clipsToBounds = true
-        layer.zPosition = 999
         layer.cornerRadius = config.cornerRadius ?? frame.height / 2
-        if #available(iOS 12.0, *) {
-            backgroundColor = traitCollection.userInterfaceStyle == .light ? config.lightBackgroundColor : config.darkBackgroundColor
-        } else {
-            backgroundColor = config.lightBackgroundColor
+        layer.zPosition = 999
+        switch config.background {
+        case .none:
+            backgroundView?.removeFromSuperview()
+            backgroundView = nil
+        case .color(let color):
+            backgroundColor = color
+            backgroundView?.removeFromSuperview()
+            backgroundView = nil
+        case .visualEffect(let visualEffect):
+            if backgroundView == nil {
+                backgroundView = UIVisualEffectView(frame: bounds)
+                backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                insertSubview(backgroundView, at: 0)
+            }
+            backgroundView.effect = visualEffect
+            if #available(iOS 26.0, *) {
+                clipsToBounds = false
+                layer.cornerRadius = 0
+                backgroundView.cornerConfiguration = config.cornerRadius.map { .corners(radius: .fixed($0)) } ?? .capsule()
+            }
         }
         
         addShadow()

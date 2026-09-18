@@ -238,6 +238,11 @@ import UIKit
             backgroundView.backgroundColor = color
             backgroundView.layer.zPosition = 998
             return backgroundView
+        case .visualEffect(let visualEffect):
+            let backgroundView = UIVisualEffectView(effect: visualEffect)
+            backgroundView.frame = viewController?.view.bounds ?? .zero
+            backgroundView.layer.zPosition = 998
+            return backgroundView
         }
     }
     
@@ -334,8 +339,9 @@ extension Toast {
     }
     
     public enum Background: Equatable {
-        case none,
-             color(color: UIColor = defaultImageTint.withAlphaComponent(0.25))
+        case none
+        case color(color: UIColor = defaultImageTint.withAlphaComponent(0.25))
+        case visualEffect(UIVisualEffect)
     }
 }
 
